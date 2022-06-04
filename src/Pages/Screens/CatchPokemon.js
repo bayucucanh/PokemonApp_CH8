@@ -58,9 +58,6 @@ const CatchPokemon = () => {
       setPokemon(newPokemon);
     }
   };
-
-  console.log(props);
-  const dummy = data;
   
   return (
       <ImageBackground
