@@ -58,6 +58,7 @@ const CatchPokemon = () => {
       setPokemon(newPokemon);
     }
   };
+  
   return (
       <ImageBackground
         source={BackgroundCatch}
