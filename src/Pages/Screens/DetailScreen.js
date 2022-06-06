@@ -1,4 +1,12 @@
-import {StyleSheet, Text, View, Image, ImageBackground, FlatList} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ImageBackground,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import {BackgroundCatch} from '../../Assets';
@@ -18,15 +26,25 @@ const DetailScreen = () => {
 
   const renderType = ({item}) => (
     <View>
-      <Text style={{ marginRight: 10 }}>| {item.type.name} |</Text>
+      <Text style={{marginRight: 10}}>| {item.type.name} |</Text>
     </View>
   );
 
   const renderAbility = ({item}) => (
     <View>
-      <Text style={{ marginRight: 10 }}>{item.ability.name}</Text>
+      <Text style={{marginRight: 10}}>{item.ability.name}</Text>
     </View>
   );
+
+  const cacthPokemon = () => {
+    const numPokemon = 30;
+    const catched = Math.floor(Math.random() * numPokemon);
+    if (catched % 2 === 0) {
+      alert('Berhasil ditangkap');
+    } else {
+      alert('Gagal ditangkap');
+    }
+  };
 
   return (
     <View style={{flex: 1, backgroundColor: '#7fad71'}}>
@@ -65,16 +83,19 @@ const DetailScreen = () => {
         <Text style={styles.title}>Type</Text>
         <FlatList
           numColumns={2}
-          keyExtractor={(index) => index.toString()}
+          keyExtractor={index => index.toString()}
           data={type}
           renderItem={renderType}
         />
         <Text style={styles.title}>Abilities</Text>
         <FlatList
-          keyExtractor={(index) => index.toString()}
+          keyExtractor={index => index.toString()}
           data={ability}
           renderItem={renderAbility}
         />
+        <TouchableOpacity onPress={cacthPokemon}>
+          <Text>Cacth</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -102,5 +123,5 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: 'bold',
   },
-  title: { fontWeight: 'bold', fontSize: 20, color: '#000', marginTop: 10 }
+  title: {fontWeight: 'bold', fontSize: 20, color: '#000', marginTop: 10},
 });
