@@ -2,13 +2,13 @@ import axios from 'axios';
 import { GET_DETAIL } from "../Types";
 
 
-export const getDetailPokemon = data => ({
+const getDetailPokemon = data => ({
   type: GET_DETAIL,
   payload: data,
 });
 
 
-export function GetDataPokemonDetail(url, navigation) {
+function GetDataPokemonDetail(url, navigation) {
   return async dispatch => {
     await axios
       .get(url)
@@ -21,3 +21,5 @@ export function GetDataPokemonDetail(url, navigation) {
       });
   };
 }
+
+export {GetDataPokemonDetail}
