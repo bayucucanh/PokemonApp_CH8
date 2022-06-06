@@ -53,60 +53,64 @@ export const prevPage = value => ({
 export function GetDataPokemon() {
   return async dispatch => {
     dispatch(loading(true));
-    try {
-      await axios.get(baseURL).then(response => {
+    await axios
+      .get(baseURL)
+      .then(response => {
         dispatch(loading(false));
         dispatch(refresh(false));
         dispatch(getDataPokemon(response.data));
+      })
+      .catch(error => {
+        console.log(error);
       });
-    } catch (error) {
-      console.log(error);
-    }
   };
 }
 
 export function GetDataPokemonDetail(url, navigation) {
   return async dispatch => {
     dispatch(loading(true));
-    try {
-      await axios.get(url).then(response => {
+    await axios
+      .get(url)
+      .then(response => {
         dispatch(loading(false));
         dispatch(refresh(false));
         dispatch(getDetailPokemon(response.data));
         navigation.navigate('DetailScreen');
+      })
+      .catch(error => {
+        console.log(error);
       });
-    } catch (error) {
-      console.log(error);
-    }
   };
 }
 
 export function GetDataAfterNext(url) {
   return async dispatch => {
     dispatch(loading(true));
-    try {
-      await axios.get(url).then(response => {
+    await axios
+      .get(url)
+      .then(response => {
         dispatch(loading(false));
         dispatch(refresh(false));
         dispatch(getDataPokemon(response.data));
+      })
+      .catch(error => {
+        console.log(error);
       });
-    } catch (error) {
-      console.log('error');
-    }
   };
 }
 
 export function GetDataAfterPrevious(url) {
   return async dispatch => {
     dispatch(loading(true));
-    try {
-      await axios.get(url).then(response => {
+    await axios
+      .get(url)
+      .then(response => {
         dispatch(loading(false));
         dispatch(refresh(false));
         dispatch(getDataPokemon(response.data));
+      })
+      .catch(error => {
+        console.log(error);
       });
-    } catch (error) {
-      console.log('error');
-    }
   };
 }
