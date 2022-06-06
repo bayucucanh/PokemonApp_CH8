@@ -50,10 +50,10 @@ export const prevPage = (value) => ({
   payload: value,
 });
 
-export const GetDataPokemon = () => async (dispatch) => {
+export const GetDataPokemon = () => async dispatch => {
     dispatch(loading(true));
     try {
-      await axios.get(baseURL).then((response) => {
+      await axios.get(baseURL).then(response => {
         dispatch(loading(false));
         dispatch(refresh(false));
         dispatch(getDataPokemon(response.data));
@@ -77,10 +77,10 @@ export const GetDataPokemonDetail = (url, navigation) => async (dispatch) => {
   }
 };
 
-export const GetDataAfterNext = (url) => async (dispatch) => {
+export const GetDataAfterNext = (url) => async dispatch => {
   dispatch(loading(true));
   try {
-    await axios.get(url).then((response) => {
+    await axios.get(url).then(response => {
       dispatch(loading(false));
       dispatch(refresh(false));
       dispatch(getDataPokemon(response.data));
