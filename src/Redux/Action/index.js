@@ -51,12 +51,12 @@ export const prevPage = value => ({
 });
 
 export const GetDataPokemon = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch(loading(true));
     try {
       await axios
         .get(baseURL)
-        .then(response => {
+        .then((response) => {
           dispatch(loading(false));
           dispatch(refresh(false));
           dispatch(getDataPokemon(response.data))
@@ -68,12 +68,12 @@ export const GetDataPokemon = () => {
 };
 
 export const GetDataPokemonDetail = (url, navigation) => {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch(loading(true));
     try {
       await axios
         .get(url)
-        .then(response => {
+        .then((response) => {
           dispatch(loading(false));
           dispatch(refresh(false));
           dispatch(getDetailPokemon(response.data))
@@ -86,13 +86,12 @@ export const GetDataPokemonDetail = (url, navigation) => {
 };
 
 export const GetDataAfterNext = (url) => {
-  console.log('next', url);
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch(loading(true));
     try {
       await axios
         .get(url)
-        .then(response => {
+        .then((response) => {
           dispatch(loading(false));
           dispatch(refresh(false));
           dispatch(getDataPokemon(response.data))
@@ -104,13 +103,12 @@ export const GetDataAfterNext = (url) => {
 };
 
 export const GetDataAfterPrevious = (url) => {
-  console.log('prev',url);
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch(loading(true));
     try {
       await axios
         .get(url)
-        .then(response => {
+        .then((response) => {
           dispatch(loading(false));
           dispatch(refresh(false));
           dispatch(getDataPokemon(response.data))
