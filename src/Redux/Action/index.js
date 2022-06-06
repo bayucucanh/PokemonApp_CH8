@@ -82,35 +82,3 @@ export function GetDataPokemonDetail(url, navigation) {
       });
   };
 }
-
-// export function GetDataAfterNext(url) {
-//   return async dispatch => {
-//     dispatch(loading(true));
-//     await axios
-//       .get(url)
-//       .then(async (response) => {
-//         dispatch(loading(false));
-//         dispatch(refresh(false));
-//         dispatch(getDataPokemon(response.data));
-//       })
-//       .catch(error => {
-//         console.log(error);
-//       });
-//   };
-// }
-
-// export function GetDataAfterPrevious(url) {
-//   return async dispatch => {
-//     dispatch(loading(true));
-//     await axios
-//       .get(url)
-//       .then(async (response) => {
-//         dispatch(loading(false));
-//         dispatch(refresh(false));
-//         dispatch(getDataPokemon(response.data));
-//       })
-//       .catch(error => {
-//         console.log(error);
-//       });
-//   };
-// }
