@@ -6,55 +6,20 @@ import {
   Login,
   Register,
   CatchPokemon,
+  PokeBag
 } from '../Pages';
 
 const Stack = createNativeStackNavigator();
 
-function AppStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName="HomeScreen"
-      screenOptions={{
-        headerShown: false,
-      }}>
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
-      <Stack.Screen name="DetailScreen" component={DetailScreen} />
-      <Stack.Screen name="CatchPokemon" component={CatchPokemon} />
-    </Stack.Navigator>
-  );
-}
-
-const AuthStack = () => {
-  return (
-    <Stack.Navigator initialRouteName="LoginScreen">
-      <Stack.Screen
-        name="LoginScreen"
-        component={Login}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="RegisterScreen"
-        component={Register}
-        options={{headerShown: false}}
-      />
-    </Stack.Navigator>
-  );
-};
-
 const Router = () => {
   return (
-    <Stack.Navigator initialRouteName="AppStack">
-      <Stack.Screen
-        name="AuthStack"
-        component={AuthStack}
-        options={{headerShown: false}}
-      />
-
-      <Stack.Screen
-        name="AppStack"
-        component={AppStack}
-        options={{headerShown: false}}
-      />
+    <Stack.Navigator initialRouteName="AuthStack">
+      <Stack.Screen name="LoginScreen" component={Login} options={{headerShown: false}}/>
+      <Stack.Screen name="RegisterScreen" component={Register} options={{headerShown: false}}/>
+      <Stack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false}}/>
+      <Stack.Screen name="DetailScreen" component={DetailScreen} options={{headerShown: false}}/>
+      <Stack.Screen name="CatchPokemon" component={CatchPokemon} options={{headerShown: false}}/>
+      <Stack.Screen name="PokeBag" component={PokeBag} options={{headerShown: false}}/>
     </Stack.Navigator>
   );
 };

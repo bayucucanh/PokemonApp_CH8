@@ -17,7 +17,9 @@ import {
 import {useSelector, useDispatch} from 'react-redux';
 import {PokeBall, BackgroundCatch} from '../../Assets';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({navigation, route}) => {
+  const {userData} = route.params;
+  console.log(userData);
   const dispatch = useDispatch();
   const [halaman, setHalaman] = useState(1);
 
