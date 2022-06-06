@@ -3,7 +3,7 @@ import React from 'react'
 
 const PokeBag = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>PokeBag</Text>
     </View>
   )
@@ -11,4 +11,8 @@ const PokeBag = () => {
 
 export default PokeBag
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+})

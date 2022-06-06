@@ -37,7 +37,6 @@ const DetailScreen = () => {
   );
 
   const cacthPokemon = () => {
-    const numPokemon = 30;
     const catched = 10
     if (catched % 2 === 0) {
       alert('Berhasil ditangkap');
