@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native'
+import { StyleSheet, Text, TextInput } from 'react-native'
 import React from 'react'
 
 const Input = () => {
   return (
-    <TextInput>
+    <TextInput style={styles.input}>
       <Text>Input</Text>
     </TextInput>
   )
@@ -11,4 +11,8 @@ const Input = () => {
 
 export default Input
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  input: {
+    backgroundColor: '#fff'
+  }
+})

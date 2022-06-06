@@ -14,7 +14,7 @@ import * as yup from 'yup';
 
 const Register = props => {
 
-  const loginValidationSchema = yup.object().shape({
+  const registerValidationSchema = yup.object().shape({
     email: yup
       .string()
       .email('Please enter valid email')
@@ -70,7 +70,7 @@ const Register = props => {
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Formik
-        validationSchema={loginValidationSchema}
+        validationSchema={registerValidationSchema}
         initialValues={{email: '', password: '', name: '', bio: ''}}
         onSubmit={values => onRegisterWithRDB(values)}>
         {({
