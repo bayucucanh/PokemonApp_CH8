@@ -83,7 +83,7 @@ const HomeScreen = ({navigation}) => {
             fontWeight: 'bold',
             marginTop: 10,
           }}>
-          {halaman}
+          {halaman} / {pokeData.count}
         </Text>
         <TouchableOpacity
           onPress={() => nextPokemon()}
