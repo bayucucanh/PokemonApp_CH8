@@ -3,12 +3,11 @@ import {
   REFRESH,
   GET_DATA,
   GET_DETAIL,
-  LOGIN,
-  REGISTER,
 } from '../Types';
 
 const initialState = {
   pokemon: [],
+  detailPokemon: []
 };
 
 export const GlobalReducer = (state = initialState, action) => {
@@ -17,6 +16,11 @@ export const GlobalReducer = (state = initialState, action) => {
       return {
         ...state,
         pokemon: action.payload,
+      };
+    case GET_DETAIL:
+      return {
+        ...state,
+        detailPokemon: action.payload,
       };
     case LOADING:
       return {
