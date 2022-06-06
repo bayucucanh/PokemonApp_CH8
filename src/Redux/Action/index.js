@@ -55,7 +55,7 @@ export function GetDataPokemon() {
     dispatch(loading(true));
     await axios
       .get(baseURL)
-      .then(response => {
+      .then(async (response) => {
         dispatch(loading(false));
         dispatch(refresh(false));
         dispatch(getDataPokemon(response.data));
@@ -71,7 +71,7 @@ export function GetDataPokemonDetail(url, navigation) {
     dispatch(loading(true));
     await axios
       .get(url)
-      .then(response => {
+      .then(async (response) => {
         dispatch(loading(false));
         dispatch(refresh(false));
         dispatch(getDetailPokemon(response.data));
@@ -88,7 +88,7 @@ export function GetDataAfterNext(url) {
     dispatch(loading(true));
     await axios
       .get(url)
-      .then(response => {
+      .then(async (response) => {
         dispatch(loading(false));
         dispatch(refresh(false));
         dispatch(getDataPokemon(response.data));
@@ -104,7 +104,7 @@ export function GetDataAfterPrevious(url) {
     dispatch(loading(true));
     await axios
       .get(url)
-      .then(response => {
+      .then(async (response) => {
         dispatch(loading(false));
         dispatch(refresh(false));
         dispatch(getDataPokemon(response.data));
