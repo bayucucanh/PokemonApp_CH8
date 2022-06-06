@@ -1,19 +1,23 @@
 import {StyleSheet, Text, View, FlatList, TouchableOpacity, Image, ImageBackground} from 'react-native';
 import React, {useState, useEffect, useCallback, useMemo} from 'react';
-import {GetDataPokemon, GetDataAfterNext, GetDataAfterPrevious} from '../../Redux/Action';
+import {GetDataPokemon, GetDataAfterNext, GetDataAfterPrevious, GetDataPokemonDetail} from '../../Redux/Action';
 import {useSelector, useDispatch} from 'react-redux';
 import { PokeBallOutline, PokeBall, BackgroundCatch } from '../../Assets';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const [halaman, setHalaman] = useState(1);
-
 
   const pokeData = useSelector(state => {
     return state.appData.pokemon;
   });
 
+  const pokemonDetail = useSelector(state => {
+    return state.appData.detailPokemon;
+  });
+
   useEffect(() => {
+    console.log('detailPokemon', pokemonDetail);
     dispatch(GetDataPokemon())
   }, []);
 
@@ -35,7 +39,7 @@ const HomeScreen = () => {
   });
 
   const GoToDetail = (url) => {
-    alert(url)
+    dispatch(GetDataPokemonDetail(url, navigation))
   }
 
   const renderItem = ({item}) => (

@@ -66,6 +66,25 @@ export const GetDataPokemon = () => {
   };
 };
 
+export const GetDataPokemonDetail = (url, navigation) => {
+  return async dispatch => {
+    dispatch(loading(true));
+    try {
+      await axios
+        .get(url)
+        .then(response => {
+          // console.log(response);
+          dispatch(loading(false));
+          dispatch(refresh(false));
+          dispatch(getDetailPokemon(response.data))
+          navigation.navigate('DetailScreen')
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const GetDataAfterNext = (url) => {
   console.log('next', url);
   return async dispatch => {
