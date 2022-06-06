@@ -1,12 +1,10 @@
 import axios from 'axios';
 import { GET_DETAIL } from "../Types";
 
-
 const getDetailPokemon = data => ({
   type: GET_DETAIL,
   payload: data,
 });
-
 
 function GetDataPokemonDetail(url, navigation) {
   return async dispatch => {
