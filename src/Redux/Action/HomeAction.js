@@ -19,3 +19,27 @@
 //       });
 //   };
 // }
+
+// export const GetDataAfterNext = url => {
+//   console.log('next', url);
+//   return async dispatch => {
+//     try {
+//       await axios.get(url).then(response => {
+//         dispatch(getDataPokemon(response.data));
+//       });
+//     } catch (error) {
+//       console.log('error');
+//     }
+//   };
+// };
+// export const GetDataAfterPrevious = url => {
+//   return async dispatch => {
+//     try {
+//       await axios.get(url).then(response => {
+//         dispatch(getDataPokemon(response.data));
+//       });
+//     } catch (error) {
+//       console.log('error');
+//     }
+//   };
+// };
