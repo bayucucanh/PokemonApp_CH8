@@ -2,7 +2,7 @@ import {StyleSheet, Text, View, FlatList, TouchableOpacity, Image, ImageBackgrou
 import React, {useState, useEffect, useCallback, useMemo} from 'react';
 import {GetDataPokemon, GetDataAfterNext, GetDataAfterPrevious, GetDataPokemonDetail} from '../../Redux/Action';
 import {useSelector, useDispatch} from 'react-redux';
-import { PokeBallOutline, PokeBall, BackgroundCatch } from '../../Assets';
+import {PokeBall, BackgroundCatch } from '../../Assets';
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -12,12 +12,7 @@ const HomeScreen = ({navigation}) => {
     return state.appData.pokemon;
   });
 
-  const pokemonDetail = useSelector(state => {
-    return state.appData.detailPokemon;
-  });
-
   useEffect(() => {
-    console.log('detailPokemon', pokemonDetail);
     dispatch(GetDataPokemon())
   }, []);
 

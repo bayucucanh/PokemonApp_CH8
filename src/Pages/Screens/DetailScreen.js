@@ -1,20 +1,11 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ImageBackground,
-  FlatList,
-} from 'react-native';
+import {StyleSheet, Text, View, Image, ImageBackground, FlatList} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {BackgroundCatch, DetailBackground} from '../../Assets';
+import {BackgroundCatch} from '../../Assets';
 
 const DetailScreen = () => {
-  const dispatch = useDispatch();
   const [type, setType] = useState([]);
   const [ability, setAbility] = useState([]);
-  const [numColumns, setNumColumns] = useState(0);
 
   const pokemonDetail = useSelector(state => {
     return state.appData.detailPokemon;
@@ -62,9 +53,9 @@ const DetailScreen = () => {
         </Text>
         <View style={{flexDirection: 'row'}}>
           <View style={{marginRight: 30}}>
-            <Text style={styles.title}>Height</Text>
-            <Text style={styles.title}>Weight</Text>
-            <Text style={styles.title}>Species</Text>
+            <Text style={styles.textLeft}>Height</Text>
+            <Text style={styles.textLeft}>Weight</Text>
+            <Text style={styles.textLeft}>Species</Text>
           </View>
           <View>
             <Text style={styles.textRight}>{pokemonDetail.height}</Text>
@@ -72,20 +63,16 @@ const DetailScreen = () => {
             <Text style={styles.textRight}>{pokemonDetail.species.name}</Text>
           </View>
         </View>
-        <Text style={{ fontWeight: 'bold', fontSize: 20, color: '#000', marginTop: 10 }}>Type</Text>
+        <Text style={styles.title}>Type</Text>
         <FlatList
           numColumns={2}
-          // columnWrapperStyle={{flex: 1, justifyContent: 'space-between'}}
-          // showsVerticalScrollIndicator={false}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(index) => index.toString()}
           data={type}
           renderItem={renderType}
         />
-        <Text style={{ fontWeight: 'bold', fontSize: 20, color: '#000', marginTop: 10 }}>Abilities</Text>
+        <Text style={styles.title}>Abilities</Text>
         <FlatList
-          // columnWrapperStyle={{flex: 1, justifyContent: 'space-between'}}
-          // showsVerticalScrollIndicator={false}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(index) => index.toString()}
           data={ability}
           renderItem={renderAbility}
         />
@@ -108,7 +95,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginHorizontal: 15,
   },
-  title: {
+  textLeft: {
     color: '#000',
     fontWeight: '400',
   },
@@ -116,4 +103,5 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: 'bold',
   },
+  title: { fontWeight: 'bold', fontSize: 20, color: '#000', marginTop: 10 }
 });

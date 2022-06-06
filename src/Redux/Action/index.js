@@ -57,7 +57,6 @@ export const GetDataPokemon = () => {
       await axios
         .get(baseURL)
         .then(response => {
-          // console.log(response);
           dispatch(loading(false));
           dispatch(refresh(false));
           dispatch(getDataPokemon(response.data))
@@ -73,7 +72,6 @@ export const GetDataPokemonDetail = (url, navigation) => {
       await axios
         .get(url)
         .then(response => {
-          // console.log(response);
           dispatch(loading(false));
           dispatch(refresh(false));
           dispatch(getDetailPokemon(response.data))
