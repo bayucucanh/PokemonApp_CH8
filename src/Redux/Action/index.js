@@ -11,7 +11,7 @@ import {
 } from '../Types';
 import {baseURL} from '../../Service';
 
-export const registerSucces = (data) => ({
+export const registerSucces = data => ({
   type: REGISTER,
   payload: data,
 });
@@ -50,10 +50,10 @@ export const prevPage = (value) => ({
   payload: value,
 });
 
-export const GetDataPokemon = () => async dispatch => {
+export const GetDataPokemon = () => async (dispatch) => {
     dispatch(loading(true));
     try {
-      await axios.get(baseURL).then(response => {
+      await axios.get(baseURL).then((response) => {
         dispatch(loading(false));
         dispatch(refresh(false));
         dispatch(getDataPokemon(response.data));
