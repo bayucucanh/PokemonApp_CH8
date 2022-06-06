@@ -90,10 +90,10 @@ export const GetDataAfterNext = (url) => async (dispatch) => {
   }
 };
 
-export const GetDataAfterPrevious = (url) => async dispatch => {
+export const GetDataAfterPrevious = (url) => async (dispatch) => {
   dispatch(loading(true));
   try {
-    await axios.get(url).then(response => {
+    await axios.get(url).then((response) => {
       dispatch(loading(false));
       dispatch(refresh(false));
       dispatch(getDataPokemon(response.data));
