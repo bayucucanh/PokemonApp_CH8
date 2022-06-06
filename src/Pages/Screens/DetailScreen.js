@@ -10,10 +10,15 @@ import {
 import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import {BackgroundCatch} from '../../Assets';
+import database from '@react-native-firebase/database';
 
-const DetailScreen = () => {
+const DetailScreen = ({route}) => {
+  const {userId} = route.params;
+  console.log('User Id', userId);
+
   const [type, setType] = useState([]);
   const [ability, setAbility] = useState([]);
+  const [disableCatch, setDisableCatch] = useState(false);
 
   const pokemonDetail = useSelector(state => {
     return state.appData.detailPokemon;
@@ -22,7 +27,49 @@ const DetailScreen = () => {
   useEffect(() => {
     setType(pokemonDetail.types);
     setAbility(pokemonDetail.abilities);
-  }, []);
+    console.log(
+      pokemonDetail?.sprites?.other['official-artwork'].front_default,
+    );
+    const newReference = database().ref(`/pokeBag/${userId}`);
+    newReference.on('value', snapshot => {
+      if (snapshot.val()) {
+        checkPokemon(snapshot.val());
+      }
+    });
+  }, [disableCatch]);
+
+  const cacthPokemon = () => {
+    const reference = database().ref(`/pokeBag/${userId}`);
+    const catched = Math.floor(Math.random() * 30);
+    try {
+      if (catched % 2 === 0) {
+        alert('Pokemon caught');
+        reference.push({
+          id: pokemonDetail?.id,
+          name: pokemonDetail?.name,
+          types: pokemonDetail.types,
+          abilities: pokemonDetail.abilities,
+          pokemonImg:
+            pokemonDetail?.sprites?.other['official-artwork'].front_default,
+        });
+        setDisableCatch(false);
+      } else {
+        alert('Pokemon failed to catch, try again');
+      }
+    } catch (error) {
+      alert(Failed, 'Failed to put pokemon into your pokebag');
+    }
+  };
+
+  const checkPokemon = item => {
+    let keyFirebase = [];
+    keyFirebase = Object.keys(item);
+    for (let i = 0; i < keyFirebase.length; i++) {
+      if (item[keyFirebase[i]].name.includes(pokemonDetail?.name)) {
+        setDisableCatch(true);
+      }
+    }
+  };
 
   const renderType = ({item}) => (
     <View>
@@ -35,15 +82,6 @@ const DetailScreen = () => {
       <Text style={{marginRight: 10}}>{item.ability.name}</Text>
     </View>
   );
-
-  const cacthPokemon = () => {
-    const catched = 10
-    if (catched % 2 === 0) {
-      alert('Berhasil ditangkap');
-    } else {
-      alert('Gagal ditangkap');
-    }
-  };
 
   return (
     <View style={{flex: 1, backgroundColor: '#7fad71'}}>
@@ -88,13 +126,15 @@ const DetailScreen = () => {
         />
         <Text style={styles.title}>Abilities</Text>
         <FlatList
-          keyExtractor={index => index.toString()}
+          keyExtractor={pokemonDetail => pokemonDetail.toString()}
           data={ability}
           renderItem={renderAbility}
         />
-        <TouchableOpacity onPress={cacthPokemon}>
-          <Text>Cacth</Text>
-        </TouchableOpacity>
+        {disableCatch ? null : (
+          <TouchableOpacity onPress={cacthPokemon} style={styles.catchButton}>
+            <Text style={{ color: '#fff', fontWeight: 'bold' }}>Cacth</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -123,4 +163,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   title: {fontWeight: 'bold', fontSize: 20, color: '#000', marginTop: 10},
+  catchButton: {
+    width: 80,
+    height: 35,
+    backgroundColor: '#e16c2c',
+    position: 'absolute',
+    top: 15,
+    right: 15,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });

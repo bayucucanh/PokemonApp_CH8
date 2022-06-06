@@ -6,13 +6,13 @@ const getDetailPokemon = data => ({
   payload: data,
 });
 
-function GetDataPokemonDetail(url, navigation) {
+function GetDataPokemonDetail(url, navigation, id) {
   return async dispatch => {
     await axios
       .get(url)
       .then(async (response) => {
         dispatch(getDetailPokemon(response.data));
-        navigation.navigate('DetailScreen');
+        navigation.navigate('DetailScreen', {userId: id});
       })
       .catch(error => {
         console.log(error);

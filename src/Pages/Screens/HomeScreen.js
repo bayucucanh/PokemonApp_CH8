@@ -51,7 +51,7 @@ const HomeScreen = ({navigation, route}) => {
   const renderItem = ({item}) => (
     <TouchableOpacity
       style={styles.pokemon}
-      onPress={() => dispatch(GetDataPokemonDetail(item.url, navigation))}>
+      onPress={() => dispatch(GetDataPokemonDetail(item.url, navigation, userData.id))}>
       <Image
         source={PokeBall}
         style={{width: 30, height: 30, marginHorizontal: 15}}
@@ -129,7 +129,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection: 'row',
     padding: 7,
-    // justifyContent: 'space-around',
     alignItems: 'center',
     borderRadius: 5,
   },
