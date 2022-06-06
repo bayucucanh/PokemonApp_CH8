@@ -11,62 +11,62 @@ import {
 } from '../Types';
 import {baseURL} from '../../Service';
 
-export const registerSucces = data => ({
+export const registerSucces = (data) => ({
   type: REGISTER,
   payload: data,
 });
 
-export const loginSucces = data => ({
+export const loginSucces = (data) => ({
   type: LOGIN,
-  payload: data,
+  payload: (data),
 });
 
-export const getDataPokemon = data => ({
+export const getDataPokemon = (data) => ({
   type: GET_DATA,
   payload: data,
 });
 
-export const getDetailPokemon = data => ({
+export const getDetailPokemon = (data) => ({
   type: GET_DETAIL,
   payload: data,
 });
 
-export const loading = value => ({
+export const loading = (value) => ({
   type: LOADING,
   payload: value,
 });
 
-export const refresh = value => ({
+export const refresh = (value) => ({
   type: REFRESH,
   payload: value,
 });
 
-export const nextPage = value => ({
+export const nextPage = (value) => ({
   type: NEXT_PAGE,
   payload: value,
 });
-export const prevPage = value => ({
+export const prevPage = (value) => ({
   type: PREV_PAGE,
   payload: value,
 });
 
-export const GetDataPokemon = () => async dispatch => {
-  dispatch(loading(true));
-  try {
-    await axios.get(baseURL).then(response => {
-      dispatch(loading(false));
-      dispatch(refresh(false));
-      dispatch(getDataPokemon(response.data));
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const GetDataPokemon = () => async (dispatch) => {
+    dispatch(loading(true));
+    try {
+      await axios.get(baseURL).then((response) => {
+        dispatch(loading(false));
+        dispatch(refresh(false));
+        dispatch(getDataPokemon(response.data));
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-export const GetDataPokemonDetail = (url, navigation) => async dispatch => {
+export const GetDataPokemonDetail = (url, navigation) => async (dispatch) => {
   dispatch(loading(true));
   try {
-    await axios.get(url).then(response => {
+    await axios.get(url).then((response) => {
       dispatch(loading(false));
       dispatch(refresh(false));
       dispatch(getDetailPokemon(response.data));
@@ -77,7 +77,20 @@ export const GetDataPokemonDetail = (url, navigation) => async dispatch => {
   }
 };
 
-export const GetDataAfterNext = url => async dispatch => {
+export const GetDataAfterNext = (url) => async (dispatch) => {
+  dispatch(loading(true));
+  try {
+    await axios.get(url).then((response) => {
+      dispatch(loading(false));
+      dispatch(refresh(false));
+      dispatch(getDataPokemon(response.data));
+    });
+  } catch (error) {
+    console.log('error');
+  }
+};
+
+export const GetDataAfterPrevious = (url) => async dispatch => {
   dispatch(loading(true));
   try {
     await axios.get(url).then(response => {
@@ -89,16 +102,3 @@ export const GetDataAfterNext = url => async dispatch => {
     console.log('error');
   }
 };
-
-export const GetDataAfterPrevious = url => async dispatch => {
-    dispatch(loading(true));
-    try {
-      await axios.get(url).then(response => {
-        dispatch(loading(false));
-        dispatch(refresh(false));
-        dispatch(getDataPokemon(response.data));
-      });
-    } catch (error) {
-      console.log('error');
-    }
-  };
