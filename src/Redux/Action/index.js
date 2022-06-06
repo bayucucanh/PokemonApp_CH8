@@ -61,7 +61,9 @@ export const GetDataPokemon = () => {
           dispatch(refresh(false));
           dispatch(getDataPokemon(response.data))
         });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
 
@@ -91,7 +93,6 @@ export const GetDataAfterNext = (url) => {
       await axios
         .get(url)
         .then(response => {
-          console.log('response next ', response.data.next);
           dispatch(loading(false));
           dispatch(refresh(false));
           dispatch(getDataPokemon(response.data))
@@ -101,6 +102,7 @@ export const GetDataAfterNext = (url) => {
     }
   };
 };
+
 export const GetDataAfterPrevious = (url) => {
   console.log('prev',url);
   return async dispatch => {
@@ -109,7 +111,6 @@ export const GetDataAfterPrevious = (url) => {
       await axios
         .get(url)
         .then(response => {
-          console.log('response prev ', response.data.prev);
           dispatch(loading(false));
           dispatch(refresh(false));
           dispatch(getDataPokemon(response.data))

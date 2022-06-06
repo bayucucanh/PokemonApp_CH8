@@ -3,7 +3,7 @@ import React from 'react'
 
 const Login = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Login</Text>
     </View>
   )
@@ -11,4 +11,8 @@ const Login = () => {
 
 export default Login
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+})

@@ -3,8 +3,6 @@ import {
   REFRESH,
   GET_DATA,
   GET_DETAIL,
-  LOGIN,
-  REGISTER,
 } from '../Types';
 
 const initialState = {

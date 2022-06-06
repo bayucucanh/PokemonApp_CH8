@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View, Image, ImageBackground, FlatList} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {BackgroundCatch} from '../../Assets';
 
 const DetailScreen = () => {
@@ -14,7 +14,6 @@ const DetailScreen = () => {
   useEffect(() => {
     setType(pokemonDetail.types);
     setAbility(pokemonDetail.abilities);
-    setNumColumns(pokemonDetail.abilities.length)
   }, []);
 
   const renderType = ({item}) => (
