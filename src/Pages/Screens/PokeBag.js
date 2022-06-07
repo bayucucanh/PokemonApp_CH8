@@ -59,7 +59,7 @@ const PokeBag = props => {
             try {
               database().ref(`/pokeBag/${userId}/${id}`).remove();
               pokeBagData();
-              setRemove(false)
+              setRemove(false);
             } catch (error) {
               console.log(error);
             }
@@ -78,13 +78,22 @@ const PokeBag = props => {
     <ImageBackground source={BackgroundCatch} style={styles.container}>
       <Text style={styles.titleScreen}>PokeBag</Text>
       {remove === true ? (
-        <TouchableOpacity
-          onPress={() => RemovePokemon()}
-          style={styles.removeBtn}>
-          <Text style={{fontSize: 13, color: '#fff', fontWeight: 'bold'}}>
-            Remove {pokebag[id]?.name}
-          </Text>
-        </TouchableOpacity>
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <TouchableOpacity
+            onPress={() => setRemove(false)}
+            style={styles.removeBtn}>
+            <Text style={{fontSize: 13, color: '#fff', fontWeight: 'bold'}}>
+              Cancel
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => RemovePokemon()}
+            style={styles.removeBtn}>
+            <Text style={{fontSize: 13, color: '#fff', fontWeight: 'bold'}}>
+              Remove {pokebag[id]?.name}
+            </Text>
+          </TouchableOpacity>
+        </View>
       ) : null}
 
       {pokebag.length === 0 ? (
@@ -127,9 +136,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   removeBtn: {
-    // position: 'absolute',
-    // bottom: 15,
-    // right: 15,
+    marginRight: 15,
     width: 140,
     height: 35,
     backgroundColor: '#e16c2c',
