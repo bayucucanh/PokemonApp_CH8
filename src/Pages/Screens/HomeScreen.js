@@ -16,6 +16,7 @@ import {
 } from '../../Redux/Action';
 import {useSelector, useDispatch} from 'react-redux';
 import {PokeBall, BackgroundCatch} from '../../Assets';
+import {HomeHeader} from '../../Components/Headers';
 
 const HomeScreen = ({navigation, route}) => {
   const {userData} = route.params;
@@ -51,7 +52,9 @@ const HomeScreen = ({navigation, route}) => {
   const renderItem = ({item}) => (
     <TouchableOpacity
       style={styles.pokemon}
-      onPress={() => dispatch(GetDataPokemonDetail(item.url, navigation, userData.id))}>
+      onPress={() =>
+        dispatch(GetDataPokemonDetail(item.url, navigation, userData.id))
+      }>
       <Image
         source={PokeBall}
         style={{width: 30, height: 30, marginHorizontal: 15}}
@@ -64,6 +67,7 @@ const HomeScreen = ({navigation, route}) => {
 
   return (
     <ImageBackground source={BackgroundCatch} style={styles.container}>
+      <HomeHeader navigation={navigation} userId={userData.id}/>
       <FlatList
         numColumns={2}
         columnWrapperStyle={{flex: 1, justifyContent: 'space-between'}}

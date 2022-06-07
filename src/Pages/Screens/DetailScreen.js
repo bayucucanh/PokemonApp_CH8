@@ -87,11 +87,11 @@ const DetailScreen = ({route}) => {
     <View style={{flex: 1, backgroundColor: '#7fad71'}}>
       <ImageBackground source={BackgroundCatch} style={styles.detailTop}>
         <Image
-          source={{uri: pokemonDetail.sprites.front_default}}
+          source={{uri: pokemonDetail?.sprites?.other['official-artwork'].front_default}}
           style={{
             width: 230,
             height: 230,
-            marginTop: 85,
+            marginTop: 65,
           }}
         />
       </ImageBackground>
