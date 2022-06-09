@@ -35,15 +35,16 @@ const HomeScreen = ({navigation, route}) => {
       setHalaman(halaman + 1);
       dispatch(GetDataAfterNext(pokeData.next));
     }
-  });
+  }, [dispatch, halaman, pokeData.next]);
+
   const previousPokemon = useCallback(() => {
     if (pokeData.previous === null) {
-      console.log('mentok');
+      alert('Tidak ada halaman lagi');
     } else {
       setHalaman(halaman - 1);
       dispatch(GetDataAfterPrevious(pokeData.previous));
     }
-  });
+  }, [dispatch, halaman, pokeData.previous]);
 
   useEffect(() => {
     dispatch(GetDataPokemon());
