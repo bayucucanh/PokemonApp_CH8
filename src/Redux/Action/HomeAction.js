@@ -1,21 +1,12 @@
 import axios from 'axios';
-import {GET_DATA, LOADING, REFRESH} from '../Types';
+import {GET_DATA} from '../Types';
 import {baseURL} from '../../Service';
+import { loading, refresh } from './GlobalAction';
 
 export const getDataPokemon = data => ({
   type: GET_DATA,
   payload: data,
 });
-
-export const loading = val => ({
-  type: LOADING,
-  payload: val
-})
-
-export const refresh = val => ({
-  type: REFRESH,
-  payload: val
-})
 
 
 export const GetDataPokemon = () => {

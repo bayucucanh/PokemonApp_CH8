@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
+  RefreshControl
 } from 'react-native';
 import React, {useState, useEffect, useCallback} from 'react';
 import {
@@ -18,6 +19,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {PokeBall, BackgroundCatch} from '../../Assets';
 import {HomeHeader} from '../../Components/Headers';
 import Loading from '../../Components/Loading';
+import { refresh } from '../../Redux/Action/GlobalAction';
 
 const HomeScreen = ({navigation, route}) => {
   const {userData} = route.params;
@@ -41,6 +43,12 @@ const HomeScreen = ({navigation, route}) => {
       dispatch(GetDataAfterNext(pokeData.next));
     }
   }, [dispatch, halaman, pokeData.next]);
+
+  const Refresh = () => {
+    dispatch(refresh(true))
+    dispatch(GetDataPokemon());
+  }
+
 
   const previousPokemon = useCallback(() => {
     if (pokeData.previous === null) {
