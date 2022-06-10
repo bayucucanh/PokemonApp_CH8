@@ -137,13 +137,13 @@ const DetailScreen = ({route}) => {
         <Text style={styles.title}>Type</Text>
         <FlatList
           numColumns={2}
-          keyExtractor={index => index.toString()}
+          keyExtractor={(item, index) => index.toString()}
           data={type}
           renderItem={renderType}
         />
         <Text style={styles.title}>Abilities</Text>
         <FlatList
-          keyExtractor={pokemonDetail => pokemonDetail.toString()}
+          keyExtractor={(item, index) => index.toString()}
           data={ability}
           renderItem={renderAbility}
         />
