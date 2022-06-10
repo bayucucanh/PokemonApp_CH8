@@ -123,7 +123,7 @@ const Register = props => {
                 keyboardType="email-address"
               />
             </View>
-            {errors.email && (
+            {errors.name && (
               <Text style={styles.errorText}>{errors.name}</Text>
             )}
 

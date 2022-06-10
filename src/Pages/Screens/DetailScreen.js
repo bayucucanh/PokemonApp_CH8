@@ -6,6 +6,8 @@ import {
   ImageBackground,
   FlatList,
   TouchableOpacity,
+  Animated,
+  Easing
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
@@ -14,11 +16,11 @@ import database from '@react-native-firebase/database';
 
 const DetailScreen = ({route}) => {
   const {userId} = route.params;
-  console.log('User Id', userId);
 
   const [type, setType] = useState([]);
   const [ability, setAbility] = useState([]);
   const [disableCatch, setDisableCatch] = useState(false);
+  const animateCatch = useState(new Animated.Value(0))[0];
 
   const pokemonDetail = useSelector(state => {
     return state.appData.detailPokemon;
@@ -38,12 +40,11 @@ const DetailScreen = ({route}) => {
     });
   }, [disableCatch]);
 
-  const cacthPokemon = () => {
+  const cacthPokemon = async () => {
     const reference = database().ref(`/pokeBag/${userId}`);
     const catched = Math.floor(Math.random() * 30);
     try {
       if (catched % 2 === 0) {
-        alert('Pokemon caught');
         reference.push({
           id: pokemonDetail?.id,
           name: pokemonDetail?.name,
@@ -53,12 +54,32 @@ const DetailScreen = ({route}) => {
             pokemonDetail?.sprites?.other['official-artwork'].front_default,
         });
         setDisableCatch(false);
+        await animate();
+        alert('Pokemon caught');
       } else {
+        await animate();
         alert('Pokemon failed to catch, try again');
       }
     } catch (error) {
+      await animate();
       alert(Failed, 'Failed to put pokemon into your pokebag');
+      throw error;
     }
+  };
+
+  const rotate = animateCatch.interpolate({
+    inputRange: [0, 1, 2, 3, 4, 5, 6, 10],
+    outputRange: ['0deg', '14deg', '-8deg', '14deg', '-4deg', '10deg', '0deg', '0deg'],
+  });
+
+  const animate = async () => {
+    animateCatch.setValue(0);
+    Animated.timing(animateCatch, {
+      toValue: 15,
+      useNativeDriver: false,
+      easing: Easing.bounce,
+      duration: 2500,
+    }).start();
   };
 
   const checkPokemon = item => {
@@ -86,13 +107,9 @@ const DetailScreen = ({route}) => {
   return (
     <View style={{flex: 1, backgroundColor: '#7fad71'}}>
       <ImageBackground source={BackgroundCatch} style={styles.detailTop}>
-        <Image
+      <Animated.Image
+          style={[styles.imageDetail, { transform: [{ rotate }] }]}
           source={{uri: pokemonDetail?.sprites?.other['official-artwork'].front_default}}
-          style={{
-            width: 230,
-            height: 230,
-            marginTop: 65,
-          }}
         />
       </ImageBackground>
       <View style={styles.pokemonInfo}>
@@ -173,5 +190,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  imageDetail: {
+    width: 230,
+    height: 230,
+    marginTop: 65,
   }
 });

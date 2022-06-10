@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {GET_DATA} from '../Types';
 import {baseURL} from '../../Service';
-import { useCallback } from 'react'
 
 export const getDataPokemon = data => ({
   type: GET_DATA,
