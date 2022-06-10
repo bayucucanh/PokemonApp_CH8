@@ -17,6 +17,7 @@ import {
 import {useSelector, useDispatch} from 'react-redux';
 import {PokeBall, BackgroundCatch} from '../../Assets';
 import {HomeHeader} from '../../Components/Headers';
+import Loading from '../../Components/Loading';
 
 const HomeScreen = ({navigation, route}) => {
   const {userData} = route.params;
@@ -26,6 +27,10 @@ const HomeScreen = ({navigation, route}) => {
 
   const pokeData = useSelector(state => {
     return state.appData.pokemon;
+  });
+
+  const loading = useSelector(state => {
+    return state.appData.isLoading;
   });
 
   const nextPokemon = useCallback(() => {
@@ -48,6 +53,7 @@ const HomeScreen = ({navigation, route}) => {
 
   useEffect(() => {
     dispatch(GetDataPokemon());
+    console.log('loading', loading);
   }, []);
 
   const renderItem = ({item}) => (
@@ -66,40 +72,44 @@ const HomeScreen = ({navigation, route}) => {
     </TouchableOpacity>
   );
 
-  return (
-    <ImageBackground source={BackgroundCatch} style={styles.container}>
-      <HomeHeader navigation={navigation} userId={userData.id}/>
-      <FlatList
-        numColumns={2}
-        columnWrapperStyle={{flex: 1, justifyContent: 'space-between'}}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(item, index) => index.toString()}
-        data={pokeData.results}
-        renderItem={renderItem}
-      />
-      <View style={styles.buttons}>
-        <TouchableOpacity
-          onPress={() => previousPokemon()}
-          style={[styles.btnPagination, {backgroundColor: '#e16c2c'}]}>
-          <Text style={styles.btnText}>Previous</Text>
-        </TouchableOpacity>
-        <Text
-          style={{
-            fontSize: 15,
-            marginLeft: 13,
-            fontWeight: 'bold',
-            marginTop: 10,
-          }}>
-          {halaman} / {pokeData.count}
-        </Text>
-        <TouchableOpacity
-          onPress={() => nextPokemon()}
-          style={[styles.btnPagination, {backgroundColor: '#97cce2'}]}>
-          <Text style={styles.btnText}>Next</Text>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
-  );
+  if (!loading) {
+    return (
+      <ImageBackground source={BackgroundCatch} style={styles.container}>
+        <HomeHeader navigation={navigation} userId={userData.id} />
+        <FlatList
+          numColumns={2}
+          columnWrapperStyle={{flex: 1, justifyContent: 'space-between'}}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item, index) => index.toString()}
+          data={pokeData.results}
+          renderItem={renderItem}
+        />
+        <View style={styles.buttons}>
+          <TouchableOpacity
+            onPress={() => previousPokemon()}
+            style={[styles.btnPagination, {backgroundColor: '#e16c2c'}]}>
+            <Text style={styles.btnText}>Previous</Text>
+          </TouchableOpacity>
+          <Text
+            style={{
+              fontSize: 15,
+              marginLeft: 13,
+              fontWeight: 'bold',
+              marginTop: 10,
+            }}>
+            {halaman} / {pokeData.count}
+          </Text>
+          <TouchableOpacity
+            onPress={() => nextPokemon()}
+            style={[styles.btnPagination, {backgroundColor: '#97cce2'}]}>
+            <Text style={styles.btnText}>Next</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
+    );
+  } else {
+    return <Loading />;
+  }
 };
 
 export default HomeScreen;

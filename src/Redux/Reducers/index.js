@@ -7,7 +7,9 @@ import {
 
 const initialState = {
   pokemon: [],
-  detailPokemon: []
+  detailPokemon: [],
+  isLoading: false,
+  isRefresh: false
 };
 
 export const GlobalReducer = (state = initialState, action) => {
@@ -16,11 +18,13 @@ export const GlobalReducer = (state = initialState, action) => {
       return {
         ...state,
         pokemon: action.payload,
+        isLoading: false
       };
     case GET_DETAIL:
       return {
         ...state,
         detailPokemon: action.payload,
+        isLoading: false
       };
     case LOADING:
       return {
