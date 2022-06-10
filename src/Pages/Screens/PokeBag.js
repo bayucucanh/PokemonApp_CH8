@@ -77,25 +77,6 @@ const PokeBag = props => {
   return (
     <ImageBackground source={BackgroundCatch} style={styles.container}>
       <Text style={styles.titleScreen}>PokeBag</Text>
-      {remove === true ? (
-        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-          <TouchableOpacity
-            onPress={() => setRemove(false)}
-            style={styles.removeBtn}>
-            <Text style={{fontSize: 13, color: '#fff', fontWeight: 'bold'}}>
-              Cancel
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => RemovePokemon()}
-            style={styles.removeBtn}>
-            <Text style={{fontSize: 13, color: '#fff', fontWeight: 'bold'}}>
-              Remove {pokebag[id]?.name}
-            </Text>
-          </TouchableOpacity>
-        </View>
-      ) : null}
-
       {pokebag.length === 0 ? (
         <Text>you dont have pokemon in your pokebag</Text>
       ) : (
@@ -116,6 +97,24 @@ const PokeBag = props => {
           )}
         />
       )}
+      {remove === true ? (
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <TouchableOpacity
+            onPress={() => setRemove(false)}
+            style={styles.removeBtn}>
+            <Text style={{fontSize: 13, color: '#fff', fontWeight: 'bold'}}>
+              Cancel
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => RemovePokemon()}
+            style={styles.removeBtn}>
+            <Text style={{fontSize: 13, color: '#fff', fontWeight: 'bold'}}>
+              Remove {pokebag[id]?.name}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      ) : null}
     </ImageBackground>
   );
 };

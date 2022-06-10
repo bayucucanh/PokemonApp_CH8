@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
-  RefreshControl
+  RefreshControl,
+  StatusBar
 } from 'react-native';
 import React, {useState, useEffect, useCallback} from 'react';
 import {
@@ -49,7 +50,6 @@ const HomeScreen = ({navigation, route}) => {
     dispatch(GetDataPokemon());
   }
 
-
   const previousPokemon = useCallback(() => {
     if (pokeData.previous === null) {
       alert('Tidak ada halaman lagi');
@@ -83,6 +83,9 @@ const HomeScreen = ({navigation, route}) => {
   if (!loading) {
     return (
       <ImageBackground source={BackgroundCatch} style={styles.container}>
+        <StatusBar
+        backgroundColor={'#79c9f9'}
+        />
         <HomeHeader navigation={navigation} userId={userData.id} />
         <FlatList
           numColumns={2}
@@ -126,7 +129,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#f5f6f5',
     flex: 1,
-    padding: 17,
+    paddingHorizontal: 17,
+    paddingBottom: 10
   },
   buttons: {
     flexDirection: 'row',

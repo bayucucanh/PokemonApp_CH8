@@ -1,10 +1,13 @@
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View, ActivityIndicator, StatusBar } from 'react-native'
 import React from 'react'
 
 const Loading = () => {
   return (
     <View style={[styles.container, styles.horizontal]}>
-      <ActivityIndicator size="large" color="#00ff00"  />
+      <StatusBar
+        backgroundColor={'#7fad71'}
+        />
+      <ActivityIndicator size="large" color="#fff"  />
     </View>
   )
 }
@@ -15,7 +18,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#7fad71'
   },
   horizontal: {
     flexDirection: "row",
