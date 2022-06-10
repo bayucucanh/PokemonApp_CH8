@@ -40,8 +40,8 @@ const HomeScreen = ({navigation, route}) => {
     if (pokeData.next === null) {
       console.log('Mentok');
     } else {
-      setHalaman(halaman + 1);
       dispatch(GetDataAfterNext(pokeData.next));
+      setHalaman(halaman + 1);
     }
   }, [dispatch, halaman, pokeData.next]);
 
@@ -54,8 +54,8 @@ const HomeScreen = ({navigation, route}) => {
     if (pokeData.previous === null) {
       alert('Tidak ada halaman lagi');
     } else {
-      setHalaman(halaman - 1);
       dispatch(GetDataAfterPrevious(pokeData.previous));
+      setHalaman(halaman - 1);
     }
   }, [dispatch, halaman, pokeData.previous]);
 
@@ -74,7 +74,7 @@ const HomeScreen = ({navigation, route}) => {
         source={PokeBall}
         style={{width: 30, height: 30, marginHorizontal: 15}}
       />
-      <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 15}}>
+      <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 15, textTransform: 'capitalize'}}>
         {item.name}
       </Text>
     </TouchableOpacity>
@@ -108,7 +108,7 @@ const HomeScreen = ({navigation, route}) => {
               fontWeight: 'bold',
               marginTop: 10,
             }}>
-            {halaman} / {pokeData.count}
+            Page {halaman}
           </Text>
           <TouchableOpacity
             onPress={() => nextPokemon()}

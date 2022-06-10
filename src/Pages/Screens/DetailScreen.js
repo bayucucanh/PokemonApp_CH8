@@ -54,16 +54,15 @@ const DetailScreen = ({route}) => {
             pokemonDetail?.sprites?.other['official-artwork'].front_default,
         });
         setDisableCatch(false);
-        await animate();
         alert('Pokemon caught');
-      } else {
         await animate();
+      } else {
         alert('Pokemon failed to catch, try again');
+        await animate();
       }
     } catch (error) {
-      await animate();
       alert(Failed, 'Failed to put pokemon into your pokebag');
-      throw error;
+      await animate();
     }
   };
 
@@ -76,9 +75,9 @@ const DetailScreen = ({route}) => {
     animateCatch.setValue(0);
     Animated.timing(animateCatch, {
       toValue: 15,
-      useNativeDriver: false,
       easing: Easing.bounce,
-      duration: 2500,
+      duration: 1000,
+      useNativeDriver: true,
     }).start();
   };
 
@@ -94,13 +93,13 @@ const DetailScreen = ({route}) => {
 
   const renderType = ({item}) => (
     <View>
-      <Text style={{marginRight: 10}}>| {item.type.name} |</Text>
+      <Text style={{marginRight: 10, textTransform: 'capitalize'}}>{item.type.name}</Text>
     </View>
   );
 
   const renderAbility = ({item}) => (
     <View>
-      <Text style={{marginRight: 10}}>{item.ability.name}</Text>
+      <Text style={{marginRight: 10, textTransform: 'capitalize'}}>{item.ability.name}</Text>
     </View>
   );
 
@@ -119,6 +118,7 @@ const DetailScreen = ({route}) => {
             fontWeight: 'bold',
             fontSize: 20,
             marginBottom: 5,
+            textTransform: 'capitalize'
           }}>
           {pokemonDetail.name}
         </Text>

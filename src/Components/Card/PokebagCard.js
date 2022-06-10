@@ -3,15 +3,6 @@ import React from 'react';
 import database from '@react-native-firebase/database';
 
 const PokebagCard = props => {
-  
-
-  const RemovePokemon = async () => {
-    console.log('User Data Id', props.userId);
-    console.log('Pokemon Data', props.pokemonData.id);
-    const reference = database().ref(`/pokeBag/${props.userId}/${props.pokemonData.id}`)
-    reference.remove()
-    props.pokeBagData();
-  };
 
   return (
     <TouchableOpacity style={styles.wrapper} onPress={props.onPress}>
@@ -41,5 +32,6 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 15,
     fontWeight: 'bold',
+    textTransform: 'capitalize'
   },
 });
