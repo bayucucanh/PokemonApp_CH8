@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
-  RefreshControl,
   StatusBar
 } from 'react-native';
 import React, {useState, useEffect, useCallback} from 'react';
@@ -20,7 +19,6 @@ import {useSelector, useDispatch} from 'react-redux';
 import {PokeBall, BackgroundCatch} from '../../Assets';
 import {HomeHeader} from '../../Components/Headers';
 import Loading from '../../Components/Loading';
-import { refresh } from '../../Redux/Action/GlobalAction';
 
 const HomeScreen = ({navigation, route}) => {
   const {userData} = route.params;
@@ -28,31 +26,21 @@ const HomeScreen = ({navigation, route}) => {
   const dispatch = useDispatch();
   const [halaman, setHalaman] = useState(1);
 
-  const pokeData = useSelector(state => {
-    return state.appData.pokemon;
-  });
-
-  const loading = useSelector(state => {
-    return state.appData.isLoading;
-  });
+  const pokeData = useSelector(state => state.appData.pokemon);
+  const loading = useSelector(state => state.appData.isLoading);
 
   const nextPokemon = useCallback(() => {
     if (pokeData.next === null) {
-      console.log('Mentok');
+      alert('Halaman Tidak Ditemukan');
     } else {
       dispatch(GetDataAfterNext(pokeData.next));
       setHalaman(halaman + 1);
     }
   }, [dispatch, halaman, pokeData.next]);
 
-  const Refresh = () => {
-    dispatch(refresh(true))
-    dispatch(GetDataPokemon());
-  }
-
   const previousPokemon = useCallback(() => {
     if (pokeData.previous === null) {
-      alert('Tidak ada halaman lagi');
+      alert('Halaman Tidak Ditemukan');
     } else {
       dispatch(GetDataAfterPrevious(pokeData.previous));
       setHalaman(halaman - 1);
@@ -61,7 +49,6 @@ const HomeScreen = ({navigation, route}) => {
 
   useEffect(() => {
     dispatch(GetDataPokemon());
-    console.log('loading', loading);
   }, []);
 
   const renderItem = ({item}) => (

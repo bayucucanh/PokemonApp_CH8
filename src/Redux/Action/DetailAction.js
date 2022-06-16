@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_DETAIL, LOADING, REFRESH } from "../Types";
+import { GET_DETAIL} from "../Types";
 import { loading, refresh } from './GlobalAction';
 
 const getDetailPokemon = data => ({

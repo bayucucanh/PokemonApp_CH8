@@ -111,7 +111,7 @@ const Login = ({navigation}) => {
             </TouchableOpacity>
             <View style={{flexDirection: 'row', marginTop: 10}}>
               <Text style={{color: '#000', marginRight: 5}}>
-                Don't have an account?
+                Dont have an account?
               </Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate('RegisterScreen')}>

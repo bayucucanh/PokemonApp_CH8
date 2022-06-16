@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ActivityIndicator, StatusBar } from 'react-native'
+import { StyleSheet, View, ActivityIndicator, StatusBar } from 'react-native'
 import React from 'react'
 
 const Loading = () => {

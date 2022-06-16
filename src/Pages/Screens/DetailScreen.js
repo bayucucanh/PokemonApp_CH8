@@ -2,7 +2,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   ImageBackground,
   FlatList,
   TouchableOpacity,
@@ -61,7 +60,7 @@ const DetailScreen = ({route}) => {
         await animate();
       }
     } catch (error) {
-      alert(Failed, 'Failed to put pokemon into your pokebag');
+      alert('Failed to put pokemon into your pokebag');
       await animate();
     }
   };
@@ -91,17 +90,8 @@ const DetailScreen = ({route}) => {
     }
   };
 
-  const renderType = ({item}) => (
-    <View>
-      <Text style={{marginRight: 10, textTransform: 'capitalize'}}>{item.type.name}</Text>
-    </View>
-  );
-
-  const renderAbility = ({item}) => (
-    <View>
-      <Text style={{marginRight: 10, textTransform: 'capitalize'}}>{item.ability.name}</Text>
-    </View>
-  );
+  const renderType = ({item}) => <Text style={{marginRight: 10, textTransform: 'capitalize'}}>{item.type.name}</Text>
+  const renderAbility = ({item}) => <Text style={{marginRight: 10, textTransform: 'capitalize'}}>{item.ability.name}</Text>;
 
   return (
     <View style={{flex: 1, backgroundColor: '#7fad71'}}>
@@ -149,7 +139,7 @@ const DetailScreen = ({route}) => {
         />
         {disableCatch ? null : (
           <TouchableOpacity onPress={cacthPokemon} style={styles.catchButton}>
-            <Text style={{ color: '#fff', fontWeight: 'bold' }}>Cacth</Text>
+            <Text style={{ color: '#fff', fontWeight: 'bold' }}>Catch</Text>
           </TouchableOpacity>
         )}
       </View>

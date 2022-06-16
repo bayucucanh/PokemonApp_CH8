@@ -78,7 +78,7 @@ const PokeBag = props => {
     <ImageBackground source={BackgroundCatch} style={styles.container}>
       <Text style={styles.titleScreen}>PokeBag</Text>
       {pokebag.length === 0 ? (
-        <Text>you dont have pokemon in your pokebag</Text>
+        <Text style={styles.titleScreen}>you dont have pokemon in your pokebag</Text>
       ) : (
         <FlatList
           data={key}
