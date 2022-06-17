@@ -10,8 +10,8 @@ on:
 
 env:
   APP_CENTER_TOKEN: ${{ secrets.APP_CENTER_TOKEN_MYAPP_ANDROID_TEST  }}
-  APP_NAME: ${{ 'MyApp-Android/ENV_TEST'  }}
-  TESTING_GROUP: ${{  'ENV_TEST'  }}
+  APP_NAME: ${{ 'bayucucan36/PokemonApp_CH8'  }}
+  TESTING_GROUP: ${{  'Testers'  }}
   UPLOAD_FILE: ${{ 'android/app/build/outputs/apk/app-release.apk'  }}
 
 jobs:
@@ -32,7 +32,7 @@ jobs:
         run: npm install
 
       - name: Build android
-        run: npm run android && ./gradlew assembleRelease
+        run: ./gradlew assembleRelease
 
       - name: Upload to App Center
         uses: wzieba/AppCenter-Github-Action@v1
