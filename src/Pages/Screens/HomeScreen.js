@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
-  StatusBar
+  StatusBar,
 } from 'react-native';
 import React, {useState, useEffect, useCallback} from 'react';
 import {
@@ -19,6 +19,9 @@ import {useSelector, useDispatch} from 'react-redux';
 import {PokeBall, BackgroundCatch} from '../../Assets';
 import {HomeHeader} from '../../Components/Headers';
 import Loading from '../../Components/Loading';
+import {baseURL} from '../../Service';
+import {PokemonCard} from '../../Components/Card';
+import Footer from '../../Components/Footer';
 
 const HomeScreen = ({navigation, route}) => {
   const {userData} = route.params;
@@ -26,29 +29,25 @@ const HomeScreen = ({navigation, route}) => {
   const dispatch = useDispatch();
   const [halaman, setHalaman] = useState(1);
 
-  const pokeData = useSelector(state => state.appData.pokemon);
+  const pokeData = useSelector(state => state.appData);
+  const pagination = useSelector(state => state.appData.pagination);
+
   const loading = useSelector(state => state.appData.isLoading);
 
   const nextPokemon = useCallback(() => {
-    if (pokeData.next === null) {
-      alert('Halaman Tidak Ditemukan');
-    } else {
-      dispatch(GetDataAfterNext(pokeData.next));
-      setHalaman(halaman + 1);
-    }
-  }, [dispatch, halaman, pokeData.next]);
+    dispatch(GetDataPokemon(pagination.next));
+    setHalaman(halaman + 1);
+  }, [dispatch, halaman]);
 
   const previousPokemon = useCallback(() => {
-    if (pokeData.previous === null) {
-      alert('Halaman Tidak Ditemukan');
-    } else {
-      dispatch(GetDataAfterPrevious(pokeData.previous));
-      setHalaman(halaman - 1);
-    }
-  }, [dispatch, halaman, pokeData.previous]);
+    dispatch(GetDataPokemon(pagination.previous));
+    setHalaman(halaman - 1);
+  }, [dispatch, halaman]);
 
   useEffect(() => {
-    dispatch(GetDataPokemon());
+    console.log('pagination', pagination.next);
+    console.log('Poke Data', pokeData);
+    dispatch(GetDataPokemon(`${baseURL}?offset=${0}&limit=${20}`));
   }, []);
 
   const renderItem = ({item}) => (
@@ -61,53 +60,50 @@ const HomeScreen = ({navigation, route}) => {
         source={PokeBall}
         style={{width: 30, height: 30, marginHorizontal: 15}}
       />
-      <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 15, textTransform: 'capitalize'}}>
+      <Text
+        style={{
+          color: '#fff',
+          fontWeight: 'bold',
+          fontSize: 15,
+          textTransform: 'capitalize',
+        }}>
         {item.name}
       </Text>
     </TouchableOpacity>
   );
 
-  if (!loading) {
-    return (
-      <ImageBackground source={BackgroundCatch} style={styles.container}>
-        <StatusBar
-        backgroundColor={'#79c9f9'}
-        />
-        <HomeHeader navigation={navigation} userId={userData.id} />
-        <FlatList
-          numColumns={2}
-          columnWrapperStyle={{flex: 1, justifyContent: 'space-between'}}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(item, index) => index.toString()}
-          data={pokeData.results}
-          renderItem={renderItem}
-        />
-        <View style={styles.buttons}>
-          <TouchableOpacity
-            onPress={() => previousPokemon()}
-            style={[styles.btnPagination, {backgroundColor: '#e16c2c'}]}>
-            <Text style={styles.btnText}>Previous</Text>
-          </TouchableOpacity>
-          <Text
-            style={{
-              fontSize: 15,
-              marginLeft: 13,
-              fontWeight: 'bold',
-              marginTop: 10,
-            }}>
-            Page {halaman}
-          </Text>
-          <TouchableOpacity
-            onPress={() => nextPokemon()}
-            style={[styles.btnPagination, {backgroundColor: '#97cce2'}]}>
-            <Text style={styles.btnText}>Next</Text>
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
-    );
-  } else {
-    return <Loading />;
-  }
+  // if (!loading) {
+  return (
+    <ImageBackground source={BackgroundCatch} style={styles.container}>
+      <StatusBar backgroundColor={'#79c9f9'} />
+      <HomeHeader navigation={navigation} userId={userData.id} />
+      <FlatList
+        numColumns={2}
+        columnWrapperStyle={{flex: 1, justifyContent: 'space-between'}}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={pokemon => String(pokemon.id)}
+        data={pokeData.pokemon}
+        renderItem={({item}) => (
+          <PokemonCard
+            pokemon={item}
+            onPress={() => navigation.navigate('DetailScreen', {id: item.id, userId: userData.id})
+            }
+          />
+        )}
+        ListFooterComponent={({item}) => (
+          <Footer
+            dataPokemon={item}
+            nextPokemon={nextPokemon}
+            previousPokemon={previousPokemon}
+            halaman={halaman}
+          />
+        )}
+      />
+    </ImageBackground>
+  );
+  // } else {
+  //   return <Loading />;
+  // }
 };
 
 export default HomeScreen;
@@ -117,7 +113,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f6f5',
     flex: 1,
     paddingHorizontal: 17,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   buttons: {
     flexDirection: 'row',

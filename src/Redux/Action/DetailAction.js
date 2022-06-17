@@ -1,23 +1,29 @@
 import axios from 'axios';
-import { GET_DETAIL} from "../Types";
-import { loading, refresh } from './GlobalAction';
+import { baseURL } from '../../Service';
+import {GET_DETAIL} from '../Types';
+import {loading, refresh} from './GlobalAction';
 
 const getDetailPokemon = data => ({
   type: GET_DETAIL,
   payload: data,
 });
 
-
-function GetDataPokemonDetail(url, navigation, id) {
+function GetDataPokemonDetail(id, userId) {
   return async dispatch => {
-    dispatch(loading(true))
+    dispatch(loading(true));
     await axios
-      .get(url)
-      .then(async (response) => {
-        dispatch(loading(false))
+      .get(`${baseURL}/${id}`)
+      .then(async response => {
+        const data = {
+          ...response.data,
+          type: response.data.types[0].type.name,
+          name:
+            response.data.name[0].toUpperCase() +
+            response.data.name.substring(1),
+        };
+        dispatch(loading(false));
         dispatch(refresh(false));
-        dispatch(getDetailPokemon(response.data));
-        navigation.navigate('DetailScreen', {userId: id});
+        dispatch(getDetailPokemon(data));
       })
       .catch(error => {
         console.log(error);
@@ -25,4 +31,4 @@ function GetDataPokemonDetail(url, navigation, id) {
   };
 }
 
-export {GetDataPokemonDetail}
+export {GetDataPokemonDetail};
