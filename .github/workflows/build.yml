@@ -1,4 +1,4 @@
-name: Build
+name: Build, code quality, tests, App Center
 on:
   push:
     branches:
@@ -6,6 +6,23 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
+  steps:
+    - uses: actions/checkout@v1
+    - name: App Center
+      uses: wzieba/AppCenter-Github-Action@v1.3.3
+      with:
+        java-version: 1.8
+    - name: build release
+      run: ./gradlew assembleRelease
+    - name: upload artefact to App Center
+      uses: wzieba/AppCenter-Github-Action@v1
+      with:
+        appName: wzieba/Sample-App
+        token: ${{secrets.APP_CENTER_TOKEN}}
+        group: Testers
+        file: app/build/outputs/apk/release/app-release-unsigned.apk
+        notifyTesters: true
+        debug: false
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
