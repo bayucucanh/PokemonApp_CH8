@@ -12,7 +12,7 @@ env:
   APP_CENTER_TOKEN: ${{ secrets.APP_CENTER_TOKEN_MYAPP_ANDROID_TEST  }}
   APP_NAME: ${{ 'bayucucan36/PokemonApp_CH8'  }}
   TESTING_GROUP: ${{  'Testers'  }}
-  UPLOAD_FILE: ${{ 'android/app/build/outputs/apk/app-release.apk'  }}
+  UPLOAD_FILE: ${{ 'android/app/build/outputs/apk/release/app-release.apk'  }}
 
 jobs:
   build:
