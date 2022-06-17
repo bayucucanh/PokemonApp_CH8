@@ -9,7 +9,8 @@ const initialState = {
   pokemon: [],
   detailPokemon: [],
   isLoading: false,
-  isRefresh: false
+  isRefresh: false,
+  pagination: null
 };
 
 export const GlobalReducer = (state = initialState, action) => {
@@ -17,8 +18,9 @@ export const GlobalReducer = (state = initialState, action) => {
     case GET_DATA:
       return {
         ...state,
-        pokemon: action.payload,
-        isLoading: false
+        pokemon: action.pokemon,
+        pagination: action.pagination,
+        isLoading: false,
       };
     case GET_DETAIL:
       return {

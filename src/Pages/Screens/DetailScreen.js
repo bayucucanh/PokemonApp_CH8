@@ -9,11 +9,14 @@ import {
   Easing
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {BackgroundCatch} from '../../Assets';
 import database from '@react-native-firebase/database';
+import { GetDataPokemonDetail } from '../../Redux/Action';
 
 const DetailScreen = ({route}) => {
+  const dispatch = useDispatch()
+  const {id} = route.params;
   const {userId} = route.params;
 
   const [type, setType] = useState([]);
@@ -21,11 +24,10 @@ const DetailScreen = ({route}) => {
   const [disableCatch, setDisableCatch] = useState(false);
   const animateCatch = useState(new Animated.Value(0))[0];
 
-  const pokemonDetail = useSelector(state => {
-    return state.appData.detailPokemon;
-  });
+  const pokemonDetail = useSelector(state => state.appData.detailPokemon);
 
   useEffect(() => {
+    dispatch(GetDataPokemonDetail(id, userId))
     setType(pokemonDetail.types);
     setAbility(pokemonDetail.abilities);
     console.log(
