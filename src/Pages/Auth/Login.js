@@ -4,12 +4,13 @@ import {
   View,
   TouchableOpacity,
   Alert,
-  TextInput,
   StyleSheet,
 } from 'react-native';
 import database from '@react-native-firebase/database';
 import {Formik} from 'formik';
 import * as yup from 'yup';
+import { TextInput } from 'react-native-paper';
+
 
 const Login = ({navigation}) => {
   const loginValidationSchema = yup.object().shape({
@@ -58,6 +59,7 @@ const Login = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Login to your Account</Text>
       <Formik
         validationSchema={loginValidationSchema}
         initialValues={{email: '', password: ''}}
@@ -70,16 +72,22 @@ const Login = ({navigation}) => {
           errors,
           isValid,
         }) => (
-          <>
+          <View> 
             <View style={[styles.inputContainer, {marginTop: 10}]}>
+              
               <TextInput
                 name="email"
-                placeholder="Email Address"
-                style={styles.textInput}
+                placeholder="Email"
+                label='Email'
+                style={styles.inputs}
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
                 value={values.email}
                 keyboardType="email-address"
+                mode="outlined"
+                activeOutlineColor='#000'
+                outlineColor='#544'
+                left={<TextInput.Icon name='message' />}
               />
             </View>
             {errors.email && (
@@ -95,6 +103,11 @@ const Login = ({navigation}) => {
                 onBlur={handleBlur('password')}
                 value={values.password}
                 secureTextEntry
+                mode="outlined"
+                label='Password'
+                activeOutlineColor='#000'
+                outlineColor='#544'
+                left={<TextInput.Icon name='message' />}
               />
             </View>
             {errors.password && (
@@ -107,20 +120,21 @@ const Login = ({navigation}) => {
               onPress={handleSubmit}
               style={styles.btn}
               disabled={!isValid}>
-              <Text style={styles.btnText}>Login Now</Text>
+              <Text style={styles.btnText}>Sign In</Text>
             </TouchableOpacity>
-            <View style={{flexDirection: 'row', marginTop: 10}}>
-              <Text style={{color: '#000', marginRight: 5}}>
+            <Text style={{ textAlign: 'center', marginVertical: 20, color: '#000', fontWeight: '600' }}>or continue with</Text>
+            <View style={styles.goRegister}>
+              <Text style={{marginRight: 5, textAlign: 'center'}}>
                 Dont have an account?
               </Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate('RegisterScreen')}>
-                <Text style={{color: '#b12441', fontWeight: 'bold'}}>
-                  Register Now
+                <Text style={{color: '#000', fontWeight: 'bold'}}>
+                  Sign Up
                 </Text>
               </TouchableOpacity>
             </View>
-          </>
+          </View>
         )}
       </Formik>
     </View>
@@ -130,37 +144,52 @@ const Login = ({navigation}) => {
 export default Login;
 
 const styles = StyleSheet.create({
-  container: {flex: 1, justifyContent: 'center', alignItems: 'center'},
+  container: {flex: 1, paddingHorizontal: 16, backgroundColor: '#ffffff' },
+  title: {
+    fontSize: 43,
+    fontWeight: '600',
+    color: '#000',
+    marginTop: 71,
+    marginBottom: 90,
+    maxWidth: '90%'
+  },
   inputs: {
     borderBottomColor: 'black',
     color: 'black',
     paddingLeft: 10,
-    flex: 1,
+    backgroundColor: '#F6F8FC',
   },
   inputContainer: {
-    borderRadius: 5,
-    height: 48,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f6f6f6',
+    borderRadius: 15,
+    height: 54,
+    // flexDirection: 'row',
+    // alignItems: 'center',
+   
     marginBottom: 10,
-    borderColor: '#f6f6f6',
+    borderColor: '#F6F8FC',
     borderWidth: 2,
-    width: '90%',
+    width: '100%',
   },
   btn: {
-    backgroundColor: '#b12441',
-    width: '90%',
+    backgroundColor: '#000',
+    width: '100%',
     height: 50,
-    borderRadius: 5,
+    borderRadius: 100,
     elevation: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 10
   },
   btnText: {
     color: '#fff',
-    fontSize: 14,
+    fontSize: 15,
     marginTop: 2,
+    textTransform: 'capitalize'
   },
-  errorText: {fontSize: 12, color: 'red'}
+  errorText: {fontSize: 12, color: 'red', marginLeft: 5, marginTop: 5},
+  goRegister: {
+    flexDirection: 'row',
+    marginTop: 10,
+    justifyContent: 'center',
+  }
 });
