@@ -4,13 +4,14 @@ import {
   View,
   TouchableOpacity,
   Alert,
-  TextInput,
   StyleSheet,
 } from 'react-native';
 import database from '@react-native-firebase/database';
 import uuid from 'react-native-uuid';
 import {Formik} from 'formik';
 import * as yup from 'yup';
+import { TextInput } from 'react-native-paper';
+
 
 const Register = props => {
 
@@ -68,7 +69,8 @@ const Register = props => {
   };
 
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <View style={styles.container}>
+      <Text style={styles.title}>Create your Account</Text>
       <Formik
         validationSchema={registerValidationSchema}
         initialValues={{email: '', password: '', name: '', bio: ''}}
@@ -91,6 +93,7 @@ const Register = props => {
                 onBlur={handleBlur('email')}
                 value={values.email}
                 keyboardType="email-address"
+                left={<TextInput.Icon name='message' />}
               />
             </View>
             {errors.email && (
@@ -106,6 +109,7 @@ const Register = props => {
                 onBlur={handleBlur('password')}
                 value={values.password}
                 secureTextEntry
+                left={<TextInput.Icon name='message' />}
               />
             </View>
             {errors.password && (
@@ -121,6 +125,7 @@ const Register = props => {
                 onBlur={handleBlur('name')}
                 value={values.name}
                 keyboardType="email-address"
+                left={<TextInput.Icon name='message' />}
               />
             </View>
             {errors.name && (
@@ -136,6 +141,7 @@ const Register = props => {
                 onBlur={handleBlur('bio')}
                 value={values.bio}
                 keyboardType="email-address"
+                left={<TextInput.Icon name='message' />}
               />
             </View>
             {errors.bio && (
@@ -148,14 +154,14 @@ const Register = props => {
               disabled={!isValid}>
               <Text style={styles.btnText}>Register Now</Text>
             </TouchableOpacity>
-            <View style={{flexDirection: 'row', marginTop: 10}}>
-              <Text style={{color: '#000', marginRight: 5}}>
+            <View style={styles.goRegister}>
+              <Text style={{marginRight: 5, textAlign: 'center'}}>
                 have an account?
               </Text>
               <TouchableOpacity
                 onPress={() => props.navigation.navigate('LoginScreen')}>
-                <Text style={{color: '#b12441', fontWeight: 'bold'}}>
-                  Login Now
+                <Text style={{color: '#000', fontWeight: 'bold'}}>
+                  Login
                 </Text>
               </TouchableOpacity>
             </View>
@@ -169,36 +175,52 @@ const Register = props => {
 export default Register;
 
 const styles = StyleSheet.create({
+  container: {flex: 1, paddingHorizontal: 16, backgroundColor: '#ffffff' },
+  title: {
+    fontSize: 43,
+    fontWeight: '600',
+    color: '#000',
+    marginTop: 71,
+    marginBottom: 10,
+    maxWidth: '90%'
+  },
   inputs: {
     borderBottomColor: 'black',
     color: 'black',
     paddingLeft: 10,
-    flex: 1,
+    backgroundColor: '#F6F8FC',
   },
   inputContainer: {
-    borderRadius: 5,
-    height: 48,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f6f6f6',
+    borderRadius: 15,
+    height: 54,
+    // flexDirection: 'row',
+    // alignItems: 'center',
+   
     marginBottom: 10,
-    borderColor: '#f6f6f6',
+    borderColor: '#F6F8FC',
     borderWidth: 2,
-    width: '90%',
+    width: '100%',
   },
   btn: {
-    backgroundColor: '#b12441',
-    width: '90%',
+    backgroundColor: '#000',
+    width: '100%',
     height: 50,
-    borderRadius: 5,
+    borderRadius: 100,
     elevation: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 17
   },
   btnText: {
     color: '#fff',
-    fontSize: 14,
+    fontSize: 15,
     marginTop: 2,
+    textTransform: 'capitalize'
   },
-  errorText: {fontSize: 12, color: 'red'}
+  errorText: {fontSize: 12, color: 'red', marginLeft: 5, marginTop: 5},
+  goRegister: {
+    flexDirection: 'row',
+    marginTop: 10,
+    justifyContent: 'center',
+  }
 });
